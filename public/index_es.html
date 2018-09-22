@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="es">
+
+    <!-- Copyright 2017 Nishant Srivastava
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+       http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License. -->
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Una aplicación web simple para generar una política de privacidad genérica para sus aplicaciones Android/iOS">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name='copyright' content='Nishant Srivastava'>
+    <meta name='author' content='Nishant Srivastava, nisrulz@gmail.com'>
+    <title>Generador de Políticas de privacidad para APP's</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
+    <link rel="stylesheet" href="styles.css">
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53824796-8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-53824796-8');
+    </script>
+
+  </head>
+
+  <body class="mdl-appg mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary hero-pattern-bg">
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+          <h3>Generador de Políticas de Privacidad para App's</h3>
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+          <p class="text-whitesmoke">Generar una Política de Privacidad y Términos &amp; Condiciones para tus aplicaciones</p>
+        </div>
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+          <a href="#edit" class="mdl-layout__tab is-active">Editar</a>
+          <a href="#privacypolicy" class="mdl-layout__tab" id='privacy_tab'>Política de Privacidad</a>
+          <a href="#tandc" class="mdl-layout__tab">T &amp; C</a>
+          <a href="#about" class="mdl-layout__tab">Acerca de</a>
+          <a href="#disclaimer" class="mdl-layout__tab">Renuncia de responsabilidad</a>
+          <div class="spacer"></div>
+          <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp" id="add" href="https://github.com/nisrulz/app-privacy-policy-generator#app-privacy-policy-generator"
+            target="_blank">
+            <img src="images/github.svg" alt="github" class="github-logo">
+            <span class="visuallyhidden">Agregar</span>
+          </a>
+        </div>
+      </header>
+      <main class="mdl-layout__content" id="vueapp">
+        <div class="mdl-layout__tab-panel is-active" id="edit">
+          <section class="section mdl-grid">
+            <div class="mdl-card mdl-cell mdl-cell--8-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-grid--no-spacing mdl-shadow--1dp">
+              <div class="mdl-card__supporting-text">
+                <h4>Proporciona la información requerida <br/><small style="color:gray">
+                  [Lea el aviso antes de usar en su proyecto]
+                </small></h4>
+
+
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" v-model="appName" placeholder="Nombre dela APP">
+                  <label class="mdl-textfield__label" for="appName">Nombre de la Aplicación</label>
+                </div>
+                <br/>
+
+
+                <div class="mdl-textfield mdl-js-textfield">
+                  <select v-model="typeOfApp" class="form-control">
+                  <option value="" disabled>Elija el tipo de aplicación</option>
+                  <option>Gratis</option>
+                  <option>Open Source</option>
+                  <option>Freemium</option>
+                  <option>Con Anuncios</option>
+                  <option>Comercial</option>
+                </select>
+                </div>
+                &nbsp;&nbsp;
+                <div class="mdl-textfield mdl-js-textfield">
+                  <select v-model="typeOfDev" class="form-control">
+                    <option value="" disabled>Elija el tipo de desarrollo</option>
+                    <option>Individual</option>
+                    <option>Empresa/Compañía</option>
+                  </select>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield" v-if="typeOfDev=='Company'">
+                  <input class="mdl-textfield__input" type="text" v-model="companyName" placeholder="Nombre de la Empresa">
+
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield" v-if="typeOfDev=='Individual'">
+                  <input class="mdl-textfield__input" type="text" v-model="devName" placeholder="Nombre del Desarrollador">
+
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                  <input class="mdl-textfield__input" type="text" v-model="pidInfoIn" placeholder="Información de identificación personal que recopila (separada por comas)">
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield">
+                  <select v-model="osType" class="form-control">
+                    <option value="" disabled>Elegir SO de la Plataforma</option>
+                    <option>Android</option>
+                    <option>iOS</option>
+                    <option>Android & iOS</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mdl-card__actions">
+                <a href="#" class="mdl-button" v-on:click="generate">Generate</a>
+              </div>
+            </div>
+            <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-grid--no-spacing mdl-shadow--1dp">
+              <div class="mdl-card__supporting-text">
+                <h4>Incluye enlaces a la política de privacidad de los Servicios de terceros <small> (Haz scroll para ver más)</small></h4>
+
+                <ul class='mdl-list' style="overflow-y: scroll; height: 30vh;">
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                     <img src="images/gps.png" alt="Google Play Services logo" class="thirdparty-logo">
+                      Google Play Services
+                    </span>
+                    <span class="mdl-list__item-secondary-action">
+                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-gps">
+                        <input type="checkbox" id="list-switch-gps" class="mdl-switch__input" v-model="gps" />
+                      </label>
+                    </span>
+                  </li>
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                      <img src="images/admob.png" alt="AdMob logo" class="thirdparty-logo">
+                      AdMob
+                    </span>
+                    <span class="mdl-list__item-secondary-action">
+                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-admob">
+                        <input type="checkbox" id="list-switch-admob" class="mdl-switch__input" v-model="admob" />
+                      </label>
+                    </span>
+                  </li>
+
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                      <img src="images/fabric.png" alt="Fabric logo" class="thirdparty-logo">
+                      Fabric
+                    </span>
+                    <span class="mdl-list__item-secondary-action">
+                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-fabric">
+                        <input type="checkbox" id="list-switch-fabric" class="mdl-switch__input" v-model="fabric" />
+                      </label>
+                    </span>
+                  </li>
+
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                      <img src="images/crashlytics.png" alt="Crashlytics logo" class="thirdparty-logo"> Crashlytics
+                    </span>
+                    <span class="mdl-list__item-secondary-action">
+                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-crashlytics">
+                        <input type="checkbox" id="list-switch-crashlytics" class="mdl-switch__input" v-model="crashlytics" />
+                      </label>
+                    </span>
+                  </li>
+
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                      <img src="images/firebase.png" alt="Firebase logo" class="thirdparty-logo"> Firebase Analytics
+                    </span>
+                    <span class="mdl-list__item-secondary-action">
+                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-firebase_analytics">
+                        <input type="checkbox" id="list-switch-firebase_analytics" class="mdl-switch__input" v-model="firebase_analytics" />
+                      </label>
+                    </span>
+                  </li>
+
+                   <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                      <img src="images/piwik.png" alt="Piwik logo" class="thirdparty-logo">
+                      Matomo (formerly Piwik)
+                    </span>
+                    <span class="mdl-list__item-secondary-action">
+                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-piwik">
+                        <input type="checkbox" id="list-switch-piwik" class="mdl-switch__input" v-model="piwik" />
+                      </label>
+                    </span>
+                  </li>
+
+                  <li class="mdl-list__item">
+                   <span class="mdl-list__item-primary-content">
+                     <img src="images/clicky.png" alt="clicky logo" class="thirdparty-logo">
+                     Clicky
+                   </span>
+                   <span class="mdl-list__item-secondary-action">
+                     <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-clicky">
+                       <input type="checkbox" id="list-switch-clicky" class="mdl-switch__input" v-model="clicky" />
+                     </label>
+                   </span>
+                 </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="mdl-layout__tab-panel" id="privacypolicy">
+          <section class="section--center mdl-grid">
+            <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+              <div class="mdl-card__supporting-text">
+                <div id="privacy_content">
+                  <h2>Política de Privacidad</h2>
+                  <p> {{devOrCompanyName}} dessarrolló {{appName}} una aplicación de tipo {{typeOfAppTxt}}. Este SERVICIO provisto por {{devOrCompanyName
+                    }} {{atNoCost }} y esta destinado a ser utilizado tal cual.
+                  </p>
+                  <p>Esta página se usa para informar a los visitantes sobre las políticas de recopilación y el uso de {{myOrOur}} si alguien decide usar {{myOrOur}}.
+                  </p>
+                  <p>Si eliges usar {{myOrOur }}, entonces aceptas la recopilación y el uso de la información en relación
+                     a esta política. La información personal que {{iOrWe}} recopila se utiliza para proporcionar y mejorar el
+                     Servicio. no usará ni compartirá su información con nadie, excepto como se describe en esta política de privacidad
+                  </p>
+                  <p>Los términos utilizados en esta Política de privacidad tienen los mismos significados que en nuestros Términos y condiciones, que son accesibles en {{appName}} a menos que se defina lo contrario en esta Política de Privacidad.
+                  </p>
+                  <p><strong>Recopilación y uso de información</strong></p>
+                  <p>Para una mejor experiencia, mientras usa {{iOrWe}} puede requerir que nos brinde cierta información de identificación personal {{pidInfo}}. La información que {{iOrWe}} solicite será {{retainedInfo}}.
+                  </p>
+                  <p>La aplicación utiliza servicios de terceros que pueden recopilar información utilizada para identificarlo.</p>
+
+                  <div v-if="gps || admob || firebase_analytics || piwik || fabric || crashlytics">
+                    <p>Enlace(s) a la política de privacidad de proveedores de servicios de terceros utilizados por la aplicación</p>
+                    <ul>
+                      <li v-if="gps"><a href="https://www.google.com/policies/privacy/" target="_blank">Google Play Services</a></li>
+                      <li v-if="admob"><a href="https://support.google.com/admob/answer/6128543?hl=en" target="_blank">AdMob</a></li>
+                      <li v-if="firebase_analytics"><a href="https://firebase.google.com/policies/analytics" target="_blank">Firebase Analytics</a></li>
+                      <li v-if="fabric">
+                        <a href="https://fabric.io/privacy" target="_blank">Fabric</a>
+                      </li>
+                      <li v-if="crashlytics">
+                        <a href="http://try.crashlytics.com/terms/privacy-policy.pdf" target="_blank">Crashlytics</a>
+                      </li>
+                       <li v-if="piwik"><a href="https://matomo.org/privacy-policy/" target="_blank">Matomo</a></li>
+                       <li v-if="clicky"><a href="https://clicky.com/terms#privacy" target="_blank">Clicky</a></li>
+                    </ul>
+                  </div>
+                  <p><strong>Log Data</strong></p>
+                  <p> {{iOrWe | capitalize}} desea informarle que siempre que use {{myOrOur}}, en el caso de un
+                     error en la aplicación {{iOrWe}} se pueden recopilar datos e información (a través de productos de terceros) en su teléfono
+                     llamado Log Data. Este Log Data puede incluir información como la dirección del Protocolo de Internet de su dispositivo ("IP"),
+                     nombre del dispositivo, versión del sistema operativo, la configuración de la aplicación cuando se utiliza el servicio {{myOrOur}},
+                     la hora y la fecha de uso del Servicio y otras estadísticas.
+                  </p>
+                  <p><strong>Cookies</strong></p>
+                  <p>Las cookies son archivos con una pequeña cantidad de datos que se utilizan comúnmente como identificadores únicos anónimos. Estas se envían a su navegador desde los sitios web que visita y se almacenan en la memoria interna de su dispositivo.
+                  </p>
+                  <p>Este Servicio no usa estas "cookies" explícitamente. Sin embargo, la aplicación puede usar código de terceros y bibliotecas
+                     que usan "cookies" para recopilar información y mejorar sus servicios. Usted tiene la opción de cualquiera
+                     acepte o rechace estas cookies y sepa cuándo se está enviando una cookie a su dispositivo. Si eliges
+                     rechazar nuestras cookies, es posible que no pueda usar algunas partes de este Servicio.
+                  </p>
+                  <p><strong>Proveedores de Servicio</strong></p>
+                  <p> {{iOrWe | capitalize}} puede emplear compañías e individuos de terceros debido a las siguientes razones:</p>
+                  <ul>
+                    <li>Para facilitar nuestro servicio;</li>
+                    <li>Para proporcionar el Servicio en nuestro nombre;</li>
+                    <li>Para realizar servicios relacionados con el servicio; o</li>
+                    <li>Para ayudarnos a analizar cómo se utiliza nuestro Servicio.</li>
+                  </ul>
+                  <p> {{iOrWe | capitalize}} desea informar a los usuarios de este Servicio que estos terceros tienen acceso a su
+                     Informacion personal. El motivo es realizar las tareas que se les asignaron en nuestro nombre. Sin embargo, ellos
+                     están obligados a no divulgar ni usar la información para ningún otro propósito.
+                  </p>
+                  <p><strong>Seguridad</strong></p>
+                  <p> {{iOrWe | capitalize}} valora su confianza al proporcionarnos su información personal, por lo tanto nos esforzamos
+                     usar medios comercialmente aceptables para protegerlo. Pero recuerde que ningún método de transmisión sobre
+                     Internet o el método de almacenamiento electrónico es 100% seguro y confiable, y {{iOrWe}} no puede garantizar
+                     su seguridad absoluta.
+                  </p>
+                  <p><strong>Enlaces a otros sitios</strong></p>
+                  <p>Este Servicio puede contener enlaces a otros sitios. Si haces clic en un enlace de un tercero, serás dirigido
+                     a ese sitio. Tenga en cuenta que estos sitios externos no son operados por {{meOrUs}}. Por lo tanto, {{iOrWe}} aconseja firmemente que revise la Política de Privacidad de estos sitios web. {{iOrWe | capitalizar}} no tienen control sobre ellos
+                     y no asume ninguna responsabilidad por el contenido, las políticas de privacidad o las prácticas de sitios de terceros o sus servicios.
+                  </p>
+                  <p><strong>Privacidad de los Niños</strong></p>
+                  <p>Estos servicios no se dirigen a personas menores de 13 años. {{IOrWe | capitalizar}} no recolecta intencionadamente información personal identificable de niños menores de 13 años. En el caso {{iOrWe}} descubre que un niño
+                     menores de 13 años han proporcionado información personal como: {{meOrUs}} , {{iOrWe}} inmediatamente eliminará esto de
+                     nuestros servidores. Si usted es un padre o tutor y sabe que su hijo nos ha proporcionado información personal
+                     , póngase en contacto con {{meOrUs}} para que {{iOrWe}} pueda realizar las acciones necesarias.
+                  </p>
+                  <p><strong>Cambios a esta Política de Privacidad</strong></p>
+                  <p> {{iOrWe | capitalize}} puede actualizar nuestra Política de privacidad de vez en cuando. Por lo tanto, se recomienda revisar
+                     esta página periódicamente para cualquier cambio. {{iOrWe | capitalize}} le notificará cualquier cambio publicando
+                     la nueva política de privacidad en esta página. Estos cambios entran en vigencia inmediatamente después de su publicación en
+                     esta página.
+                  </p>
+                  <p><strong>Contáctenos</strong></p>
+                  <p>Si tiene alguna pregunta o sugerencia sobre la Política de privacidad de {{myOrOur}} , no dude en ponerse en contacto con
+                     {{meOrUs}}.
+                  </p>
+                  <p>Esta página de política de privacidad fue creada en <a href="https://privacypolicytemplate.net" target="_blank">privacypolicytemplate.net</a> y modificada/generada por <a href="https://app-privacy-policy-generator.firebaseapp.com/" target="_blank">Generador de Políticas de Privacidad para App's</a></p>
+                </div>
+              </div>
+              <div class="mdl-card__actions">
+                <a href="#" class="mdl-button" v-on:click="generateHTML('privacy_content', 'privacy_policy')">Descargar en formato HTML</a>or
+                <a href="#" v-on:click="selectAllText('privacy_content')">Seleccionar todo</a> y copiar
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="mdl-layout__tab-panel" id="tandc">
+          <section class="section--center mdl-grid">
+            <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+              <div class="mdl-card__supporting-text">
+                <div id="tandc_content">
+                    <h2>Términos &amp; Condiciones</h2>
+                    <p>Al descargar o usar la aplicación, estos términos se aplicarán automáticamente en su caso. Por lo tanto, debe asegurarse de leerlos detenidamente antes de utilizar la aplicación. No tiene permiso para copiar o modificar la aplicación, cualquier parte de la aplicación o nuestras marcas comerciales de ninguna manera. No está permitido intentar extraer el código fuente de la aplicación, y tampoco debe intentar traducir la aplicación a otros idiomas ni hacer versiones derivadas. La aplicación en sí, y todas las marcas comerciales, derechos de autor, derechos de base de datos y otros derechos de propiedad intelectual relacionados con ella, pertenecen a {{devOrCompanyName}}.</p>
+
+                    <p>{{devOrCompanyName}} se compromete a garantizar que la aplicación sea lo más útil y eficiente posible. Por ese motivo, nos reservamos el derecho de realizar cambios en la aplicación o cobrar por sus servicios, en cualquier momento y por cualquier motivo. Nunca le cobraremos por la aplicación o sus servicios sin dejarle muy claro exactamente lo que está pagando.</p>
+
+                    <p>La aplicación {{appName}} almacena y procesa los datos personales que nos ha proporcionado para proporcionar el servicio {{myOrOur}}. Es su responsabilidad mantener seguros su teléfono y el acceso a la aplicación. Por lo tanto, le recomendamos que no haga jailbreak o rootee su teléfono, que es el proceso de eliminar las restricciones de software y las limitaciones impuestas por el sistema operativo oficial de su dispositivo. Podría hacer que su teléfono sea vulnerable a malware / virus / programas maliciosos, comprometer las características de seguridad de su teléfono y podría significar que la aplicación {{appName}} no funcionara correctamente o no funcionara.</p>
+
+                    <p>Debe tener en cuenta que hay ciertas cosas de las que {{devOrCompanyName}} no será responsable. Ciertas funciones de la aplicación requerirán que la aplicación tenga una conexión a Internet activa. La conexión puede ser Wi-Fi o proporcionada por su proveedor de red móvil, pero {{devOrCompanyName}} no puede responsabilizarse de que la aplicación no funcione con plena funcionalidad si no tiene acceso a Wi-Fi, y usted no datos disponibles en su plan contratado con su operador telefónico.<p>
+
+                    <p>Si usa la aplicación fuera de un área con Wi-Fi, debe recordar que los términos del acuerdo con su proveedor de red móvil seguirán vigentes. Como resultado, su proveedor de telefonía móvil puede cobrarle el costo de los datos por la duración de la conexión mientras accede a la aplicación u otros cargos de terceros. Al usar la aplicación, acepta la responsabilidad de dichos cargos, incluidos los cargos por datos móviles si utiliza la aplicación fuera de su territorio de origen (es decir, región o país) sin desactivar el roaming de datos. Si no es el pagador de facturas del dispositivo en el que está usando la aplicación, tenga en cuenta que suponemos que ha recibido permiso del pagador de facturas para usar la aplicación.</p>
+
+                    <p>En la misma línea, {{devOrCompanyName}} no siempre puede asumir la responsabilidad por la forma en que usa la aplicación, es decir, debe asegurarse de que el dispositivo permanezca cargado; si se queda sin batería y no puede encenderlo para aprovechar el servicio, {{devOrCompanyName}} no puede aceptar la responsabilidad.</p>
+
+                    <p>Con respecto a la responsabilidad de {{devOrCompanyName}} por el uso que usted hace de la aplicación, cuando utiliza la aplicación, es importante tener en cuenta que aunque nos esforzamos por garantizar que esté actualizada y sea correcta en todo momento, lo hacemos confiando en que terceros nos proporcionen información para que podamos ponerla a su disposición. {{devOrCompanyName}} no acepta ninguna responsabilidad por cualquier pérdida, directa o indirecta, que experimente como resultado de confiar por completo en esta funcionalidad de la aplicación.</p>
+
+                    <p>En algún momento, es posible que deseemos actualizar la aplicación. La aplicación está actualmente disponible en {{osType}} - los requisitos son {{requirementOfSystem}} (y para cualquier sistema adicional al que decidamos extender la disponibilidad de la aplicación) pueden cambiar, y deberá descargar las actualizaciones si quieres seguir usando la aplicación. {{devOrCompanyName}} no promete que siempre actualizará la aplicación para que sea relevante para usted y / o trabaje con la versión de {{osType}} que haya instalado en su dispositivo. Sin embargo, se compromete a aceptar siempre las actualizaciones de la aplicación cuando se le ofrezca. También es posible que deseemos dejar de proporcionar la aplicación, y podemos finalizar su uso en cualquier momento sin notificarle la terminación. A menos que le indiquemos lo contrario, en caso de rescisión, (a) los derechos y licencias que se le otorgan en estos términos terminarán; (b) debe dejar de usar la aplicación y (si es necesario) eliminarla de su dispositivo.</p>
+
+                    <p><strong>Cambios a estos Términos y Condiciones</strong></p>
+                    <p> {{iOrWe | capitalize}} puede actualizar nuestros Términos y condiciones de vez en cuando. Por lo tanto, se recomienda revisar
+                       esta página periódicamente para cualquier cambio. {{iOrWe | capitalize}} le notificará cualquier cambio publicando
+                       los nuevos Términos y Condiciones en esta página. Estos cambios entran en vigencia inmediatamente después de su publicación en
+                       esta página.
+                    </p>
+                    <p><strong>Contáctenos</strong></p>
+                    <p>Si tiene alguna pregunta o sugerencia sobre los Términos y condiciones de {{myOrOur}} , no dude en ponerse en contacto con nosotros en: {{meOrUs}}.
+                    </p>
+                    <p>Esta página de Términos y condiciones fue generada por <a href="https://app-privacy-policy-generator.firebaseapp.com/" target="_blank">Generador de Políticas de Privacidad para App's</a></p>
+                </div>
+              </div>
+            <div class="mdl-card__actions">
+                <a href="#" class="mdl-button" v-on:click="generateHTML('tandc_content','terms_and_conditions')">Descargar en formato HTML</a>or
+                <a href="#" v-on:click="selectAllText('tandc_content')">Seleccionar todo</a> y copiar
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="mdl-layout__tab-panel" id="about">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+              <h4>Acerca de nosotros</h4>
+              <p>App Privacy Policy Generator es una aplicación web simple que se puede utilizar para generar políticas y términos de privacidad genéricos & amp; Condiciones para tus aplicaciones.
+              </p>
+              <ul class="unstyle-list">
+                Conéctate con Nishant en
+                <li>
+                  <a href="https://github.com/nisrulz" target="_blank">Github</a>
+                </li>
+                <li>
+                  <a href="https://www.twitter.com/nisrulz" target="_blank">Twitter</a>
+                </li>
+                <li>
+                  <a href="https://medium.com/@nisrulz" target="_blank">Medium</a>
+                </li>
+                <li>
+                  <a href="https://in.linkedin.com/in/nisrulz" target="_blank">Linkedin</a>
+                </li>
+              </ul>
+
+              <p>Créditos para <a href="https://twitter.com/ali_muzaffar" target="_blank">Ali Muzaffar</a> por editar la plantilla base de la Política de privacidad, debe leer su publicación en el blog al respecto <a href="https://medium.com/@ali.muzaffar/did-you-get-one-of-these-google-play-developer-policy-violation-emails-6c529ceb082d#.f10upj3fy">aqui</a>.
+              </p>
+              <p>Si desea solicitar más opciones de elección de política de privacidad por parte de servicios de terceros, Por favor abre
+                 una <a href="https://github.com/nisrulz/app-privacy-policy-generator/issues" target="_blank"> solicitud de resolución de problemas en github.</a>.
+                Asegúrese de incluir el enlace a la política de privacidad que desea agregar.</p>
+            </div>
+          </section>
+        </div>
+        <div class="mdl-layout__tab-panel" id="disclaimer">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+              <h4>Renuncia de Responsabilidad</h4>
+              <p>
+               Esta plantilla para política de privacidad y términos & amp; las condiciones se proporcionan "TAL CUAL", sin garantías ni condiciones de ningún tipo, ni explícitas ni implícitas. Está destinado a usted como documento inspirador y puede usarlo al compilar su propia política de privacidad. El desarrollador de App Privacy Policy Generator no asume ninguna responsabilidad por las consecuencias legales asociadas con el uso de esta política de privacidad o términos & amp; condiciones, y le pido que busque asesoramiento legal local que garantice el cumplimiento de todas las reglas aplicables para los usuarios de su aplicación. El desarrollador de App Privacy Policy Generator no puede ser considerado responsable de ningún daño o pérdida directa o indirecta sufrida por usted debido al uso de este documento.
+              </p>
+              <p>Esta <a href="https://medium.com/@ali.muzaffar/did-you-get-one-of-these-google-play-developer-policy-violation-emails-6c529ceb082d#.f10upj3fy"
+                  target="_blank">publicaciónde blog</a>  explica la idea completa de cómo se redactó la política de privacidad y dónde
+                 tiene sentido usarlo.</p>
+            </div>
+          </section>
+        </div>
+
+         <p class="footer-brand center"> Hecho con <img src="images/heart.png" alt="heart" class="heart-logo"> by <a href="http://www.nisrulz.com/" target="_blank">Nishant</a> (...y mucha cafeína)</p>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <!-- VueJs -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/vue2-filters/0.1.7/vue2-filters.min.js"></script>
+
+    <!-- ClipboardJS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+
+</html>
